@@ -34,11 +34,6 @@ function App() {
     }
   ]
 
-  // const tweets = []
-  // for (var i = 0; i < tweetsData.length; i++) {
-  //   tweets.push(<Tweet key={i} userName={tweetsData[i].username} body={tweetsData[i].body}/>)
-  // }
-
   return (<div className="twt-container">
     <div className="twt-header">
       <span>TWEETS</span>

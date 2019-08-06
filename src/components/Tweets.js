@@ -4,8 +4,8 @@ import Tweet from './Tweet';
 function Tweets(props) {
   return (<div className="">
     {
-      props.tweetsInfo.map(function(tweetInfo) {
-        return <Tweet key={tweetInfo.id} {...tweetInfo}/>
+      props.tweetsInfo.map(function(tweet) {
+        return <Tweet key={tweet.id} {...tweet}/>
       })
     }
   </div>)
