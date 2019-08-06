@@ -1,50 +1,70 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Tweets from './components/Tweets';
 import './App.css';
 
-function App() {
-
-  const tweetsData = [
-    {
-      id: 1,
-      username: '@mou',
-      time: '20 minutes',
-      body: 'this is a tweet',
-      admin: true
-    }, {
-      id: 2,
-      username: '@andres',
-      time: '14 minutes',
-      body: 'this is a tweet by andres'
-    }, {
-      id: 3,
-      username: '@david',
-      time: '8 minutes',
-      body: 'this is a tweet by david'
-    }, {
-      id: 4,
-      username: '@luis',
-      time: '4 minutes',
-      body: 'this is a tweet by luis'
-    }, {
-      id: 5,
-      username: '@jeb',
-      time: '2 minutes',
-      body: 'this is a tweet by jeb'
+class App extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      tweetsData: [],
+      email: '',
+      password: ''
     }
-  ]
+    this.getTweets()
+  }
 
-  return (<div className="twt-container">
-    <div className="twt-header">
-      <span>TWEETS</span>
-      <span className="twt-btn">
-        New Tweet
-      </span>
-    </div>
+  getTweets = () => {
+    const data = fetch('http://localhost:3001/api_tweets')
+    data.then(function(response) {
+      return response.json();
+    }).then((jsonData) => {
+      this.setState({tweetsData: jsonData})
+    }).catch(function(err) {
+      console.log('Something went wrong');
+      console.log(err);
+    })
+  }
 
-    <Tweets tweetsInfo={tweetsData}/>
+  handleChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
 
-  </div>)
+  handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(event.target);
+  }
+
+  render() {
+    return (<div className="twt-container">
+
+      <div className="twt-header">
+        <form id="login" onSubmit={this.handleSubmit}>
+          <div>
+            <label>Email:</label><br/>
+            <input type="email" name="email" onChange={this.handleChange}/>
+          </div>
+          <div>
+            <label>Password:</label><br/>
+
+            <input type="password" name="password" onChange={this.handleChange}/>
+          </div>
+          <div>
+            <input type="submit"/>
+          </div>
+        </form>
+      </div>
+
+      <div className="twt-header">
+        <span>TWEETS</span>
+        <span className="twt-btn">
+          New Tweet
+        </span>
+      </div>
+      <Tweets tweetsInfo={this.state.tweetsData}/>
+    </div>)
+  }
 }
 
 export default App;

@@ -4,8 +4,9 @@ import timeSince from '../tools/TimeSince';
 function Tweet(props) {
   return (<div className="twt-content">
     <span>
-      <b>{props.username}</b>
-      <i>{props.time}</i>
+      <b>@{props.user.username}</b>
+      <i>
+        about {timeSince(new Date(props.created_at))}</i>
     </span>
     <p>
       {props.body}
