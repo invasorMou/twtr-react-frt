@@ -1,33 +1,104 @@
-.App {
+
+body {
+  background-color: #e6ecf1;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100vw;
+  height: 100vh;
+}
+
+.twt-container {
+  margin: 0 auto;
+  width: 45%;
+  border-radius: 5px;
+}
+
+.twt-header,
+.twt-content,
+.twt-header-compose,
+.twt-content-new {
+  background-color: white;
+  border: 1px solid #e6ecf1;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.twt-header {
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+}
+
+.twt-content:hover {
+  background-color: #f3f5f6;
+}
+
+.twt-header-compose {
+  display: flex;
+  justify-content: space-between;
+}
+form {
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.twt-btn {
+  background-color: #329cc3;
   color: white;
+  font-size: 14px;
+  font-weight: bold;
+  border: transparent;
+  border-radius: 100px;
+  padding: 6px 16px;
+}
+.bck-btn {
+  background-color: red;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  border: transparent;
+  border-radius: 100px;
+  padding: 6px 16px;
 }
 
-.App-link {
-  color: #61dafb;
+a {
+  color: black;
+  text-decoration: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.w-30 {
+  width: 30%;
+}
+
+.log-container,
+.sgn-container {
+  width: 50%;
+  background-color: white;
+  padding: 10px;
+  text-align: center;
+  margin: auto;
+}
+
+.flash-msg {
+  position: absolute;
+  right: 0px;
+  width: 15%;
+  padding: 10px;
+  color: white;
+  border-radius: 100px;
+}
+
+.success {
+  background-color: green;
+}
+
+.error {
+  background-color: red;
+}
+
+.alert {
+  background-color: orange;
+}
+
+.notice {
+  background-color: lightblue;
 }
