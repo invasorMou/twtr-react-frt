@@ -8,9 +8,21 @@ class App extends React.Component {
     this.state = {
       tweetsData: [],
       email: '',
-      password: ''
+      password: '',
+      userAuthenticated: false
     }
-    this.getTweets()
+  }
+
+  componentDidMount(){
+    this.getTweets();
+    this.checkAuth();
+  }
+
+  checkAuth = () => {
+    const status = localStorage.getItem('userAuthenticated')
+    if (status === 'true') {
+      this.setState({userAuthenticated: true})
+    }
   }
 
   getTweets = () => {
@@ -33,27 +45,58 @@ class App extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(event.target);
+
+    fetch('http://localhost:3001/api_sessions', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({email: this.state.email, password: this.state.password})
+    }).then(response => {
+      console.log(response);
+      if (response.status !== 200) {
+        return
+      }
+      return response.json();
+    }).then((message)=>{
+      console.log(message);
+      const status = message ? true : false
+      if (status) {
+        localStorage.setItem('userAuthenticated',true)
+        this.setState({userAuthenticated: status})
+      }
+    }).catch(err=>{
+      console.log('Something went wrong with the request');
+      console.log(err);
+    })
   }
 
   render() {
     return (<div className="twt-container">
 
       <div className="twt-header">
-        <form id="login" onSubmit={this.handleSubmit}>
-          <div>
-            <label>Email:</label><br/>
-            <input type="email" name="email" onChange={this.handleChange}/>
-          </div>
-          <div>
-            <label>Password:</label><br/>
 
-            <input type="password" name="password" onChange={this.handleChange}/>
-          </div>
-          <div>
-            <input type="submit"/>
-          </div>
-        </form>
+        {this.state.userAuthenticated ?
+          (
+            <p>Welcome</p>
+          )
+          :
+          (<form id="login" onSubmit={this.handleSubmit}>
+            <div>
+              <label>Email:</label><br/>
+              <input type="email" name="email" onChange={this.handleChange}/>
+            </div>
+            <div>
+              <label>Password:</label><br/>
+
+              <input type="password" name="password" onChange={this.handleChange}/>
+            </div>
+            <div>
+              <input type="submit"/>
+            </div>
+          </form>)
+        }
+
       </div>
 
       <div className="twt-header">
